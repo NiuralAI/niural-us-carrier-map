@@ -159,14 +159,6 @@
       };
     });
 
-    // Apply restricted overrides
-    Object.entries(stateConfig.restrictedStates || {}).forEach(([code, o]) => {
-      if (!stateDataFinal[code]) stateDataFinal[code] = {};
-      stateDataFinal[code].carrier = 'Restricted';
-      // Merge all properties from restricted state
-      Object.assign(stateDataFinal[code], o);
-    });
-
     // Apply important states - mark them as important
     Object.entries(importantMap).forEach(([code, o]) => {
       if (!stateDataFinal[code]) stateDataFinal[code] = {};
@@ -179,6 +171,14 @@
     Object.entries(stateConfig.notableStates || {}).forEach(([code, o]) => {
       if (!stateDataFinal[code]) stateDataFinal[code] = {};
       // Merge all properties from notable state (full merge, not selective)
+      Object.assign(stateDataFinal[code], o);
+    });
+
+    // Apply restricted overrides
+    Object.entries(stateConfig.restrictedStates || {}).forEach(([code, o]) => {
+      if (!stateDataFinal[code]) stateDataFinal[code] = {};
+      stateDataFinal[code].carrier = 'Restricted';
+      // Merge all properties from restricted state
       Object.assign(stateDataFinal[code], o);
     });
 
